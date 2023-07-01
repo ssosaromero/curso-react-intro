@@ -9,7 +9,7 @@ import { TodoItem } from './TodoItem';
 
 const defaultTodos = [
 { text: 'Cortar cebolla', completed: true},
-{ text: 'Tomar curso react', completed: false},
+{ text: 'Tomar curso react', completed: true},
 { text: 'Lavar los platos', completed: false},
 { text: 'Ver Spiderman', completed: false},
 ];
@@ -21,6 +21,15 @@ function App() {
   const completedTodos=todos.filter(todo=>!!todo.completed).length;
 
   const totalTodos=todos.length;
+
+  const searchedTodos = todos.filter(
+    (todo) => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      return todoText.includes(searchText);
+    }
+  );
+
   console.log('Los usuarios buscan todos de '+searchValue);
   return (
     <>
@@ -32,7 +41,7 @@ function App() {
           setSearchValue={setSearchValue}/>
 
         <TodoList>
-          {defaultTodos.map(todo => (
+          {searchedTodos.map(todo => (
             <TodoItem
               key={todo.text}
               text={todo.text}
